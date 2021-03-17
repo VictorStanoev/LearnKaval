@@ -4,68 +4,11 @@
 <head>
 	<title>Pitch Detector</title>
 	<link href='https://fonts.googleapis.com/css?family=Alike' rel='stylesheet' type='text/css'>
-	<style>
-		body {
-			font: 18pt 'Alike', sans-serif;
-		}
-
-		#note {
-			font-size: 80px;
-		}
-
-		.droptarget {
-			background-color: #348781
-		}
-
-		div.confident {
-			color: black;
-		}
-
-		div.vague {
-			color: lightgrey;
-		}
-
-		#note {
-			display: inline-block;
-			height: 280px;
-			text-align: left;
-		}
-
-		#detector {
-			width: 512px;
-			height: 230px;
-			border: 5px solid gray;
-			border-radius: 8px;
-			text-align: center;
-			padding-top: 10px;
-		}
-
-		#output {
-			width: 300px;
-			height: 42px;
-		}
-
-		#flat {
-			display: none;
-		}
-
-		#sharp {
-			display: none;
-		}
-
-		.flat #flat {
-			display: inline;
-		}
-
-		.sharp #sharp {
-			display: inline;
-		}
-	</style>
+	<link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
 	<script src="js/pitchdetect.js"></script>
-
 	<p>
 		<button onclick="togglePlayback()">start demo audio</button>
 		<button onclick="toggleLiveInput()">start live input</button>
@@ -73,58 +16,61 @@
 		<!--<button onclick="updatePitch(0);">sample</button>-->
 	</p>
 
-	<div id="detector" class="vague">
-		<div class="pitch"><span id="pitch">--</span>Hz</div>
-		<div class="note"><span id="note">--</span></div>
-		<canvas id="output" width=300 height=42></canvas>
-		<div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents
+	<table>
+		<tr>
+			<th>
+			<div id="detector" class="vague">
+				<div class="pitch"><span id="pitch">--</span>Hz</div>
+				<div class="note"><span id="note">--</span></div>
+				<canvas id="output" width=300 height=42></canvas>
+				<div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents
 				&#9839;</span></div>
-	</div>
+			</div>
+			</th>
+			<th>
+			<div id="noteBoard" style="position: relative;">
+				<img src="img/Fingers/D4.jpg" width="90" height="400"  data-reg="4" data-note="D" style="position:absolute; visibility:visible">
+				<img src="img/Fingers/D_4.jpg" width="90" height="400"   data-reg="4" data-note="D" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/E4.jpg" width="90" height="400"   data-reg="4" data-note="E" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/F4.jpg" width="90" height="400"    data-reg="4" data-note="F" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/F_4.jpg" width="90" height="400"   data-reg="4" data-note="F#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/G4.jpg" width="90" height="400" data-reg="4" data-note="G" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/G_4.jpg" width="90" height="400" data-reg="4" data-note="G#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/А4.jpg" width="90" height="400" data-reg="4" data-note="A" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/А_4.jpg" width="90" height="400" data-reg="4" data-note="A#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/B4.jpg" width="90" height="400" data-reg="4" data-note="B" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/C5.jpg" width="90" height="400" data-reg="5" data-note="C" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/D5.jpg" width="90" height="400" data-reg="5" data-note="D" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/D_5.jpg" width="90" height="400" data-reg="5" data-note="D#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/E5.jpg" width="90" height="400" data-reg="5" data-note="E" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/F5.jpg" width="90" height="400" data-reg="5" data-note="F" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/F_5.jpg" width="90" height="400" data-reg="5" data-note="F#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/G5.jpg" width="90" height="400" data-reg="5" data-note="G" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/G_5.jpg" width="90" height="400" data-reg="5" data-note="G#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/A5.jpg" width="90" height="400" data-reg="5" data-note="A" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/A_5.jpg" width="90" height="400" data-reg="5" data-note="A#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/B5.jpg" width="90" height="400" data-reg="5" data-note="B" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/C6.jpg" width="90" height="400" data-reg="6" data-note="C" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/C_6.jpg" width="90" height="400" data-reg="6" data-note="C#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/D6.jpg" width="90" height="400" data-reg="6" data-note="D" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/D_6.jpg" width="90" height="400" data-reg="6" data-note="D#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/E6.jpg" width="90" height="400" data-reg="6" data-note="E" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/F6.jpg" width="90" height="400" data-reg="6" data-note="F" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/F_6.jpg" width="90" height="400" data-reg="6" data-note="F#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/G6.jpg" width="90" height="400" data-reg="6" data-note="G" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/C_6.jpg" width="90" height="400" data-reg="6" data-note="C#" style="position:absolute; visibility: hidden">
+				<img src="img/Fingers/A6.jpg" width="90" height="400"  data-reg="6" data-note="A6" style="position:absolute; visibility: hidden">
+				
+			</th>
+	</tr>
+	<tr>
+		<th>
+			<canvas id="waveform" width="512" height="256"></canvas>
+		</th>
+	<th>
+	</table>
 
-
-	<canvas id="waveform" width="512" height="256"></canvas>
-	<div id="noteBoard" style="position: relative;">
-		<img src="img/Flute_Fingers/D4.png" data-reg="4" data-note="D" style="position:absolute; visibility:visible">
-		<img src="img/Flute_Fingers/D_4.png" data-reg="4" data-note="D" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/E4.png" data-reg="4" data-note="E" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/F4.png" data-reg="4" data-note="F" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/F_4.png" data-reg="4" data-note="F#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/G4.png" data-reg="4" data-note="G" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/G_4.png" data-reg="4" data-note="G#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/A4.png" data-reg="4" data-note="A" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/A_4.png" data-reg="4" data-note="A#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/B4.png" data-reg="4" data-note="B" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/C5.png" data-reg="5" data-note="C" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/C_5.png" data-reg="5" data-note="C#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/D5.png" data-reg="5" data-note="D" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/D_5.png" data-reg="5" data-note="D#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/E5.png" data-reg="5" data-note="E" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/E_5.png" data-reg="5" data-note="E#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/F5.png" data-reg="5" data-note="F" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/F_5.png" data-reg="5" data-note="F#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/G5.png" data-reg="5" data-note="G" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/G_5.png" data-reg="5" data-note="G#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/A5.png" data-reg="5" data-note="A" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/A_5.png" data-reg="5" data-note="A#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/B5.png" data-reg="5" data-note="B" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/C6.png" data-reg="6" data-note="C" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/C_6.png" data-reg="6" data-note="C#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/D6.png" data-reg="6" data-note="D" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/D_6.png" data-reg="6" data-note="D#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/E6.png" data-reg="6" data-note="E" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/F6.png" data-reg="6" data-note="F" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/F_6.png" data-reg="6" data-note="F#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/G6.png" data-reg="6" data-note="G" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/C_6.png" data-reg="6" data-note="C#" style="position:absolute; visibility: hidden">
-		<img src="img/Flute_Fingers/A6.png" data-reg="6" data-note="A6" style="position:absolute; visibility: hidden">
-	</div>
-
-	<!-- <a href="https://github.com/cwilso/pitchdetect"
-		style="position: absolute; z-index:2; top: 0; right: 0; border: 0;"><img src="img/forkme.png"
-			alt="Fork me on GitHub"></a>
-
-	
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-35593052-1']);

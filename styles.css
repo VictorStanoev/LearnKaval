@@ -1,0 +1,55 @@
+body {
+    font: 18pt 'Alike', sans-serif;
+}
+
+#note {
+    font-size: 70px;
+}
+
+.droptarget {
+    background-color: #348781
+}
+
+div.confident {
+    color: black;
+}
+
+div.vague {
+    color: lightgrey;
+}
+
+#note {
+    display: inline-block;
+    height: 280px;
+    text-align: left;
+}
+
+#detector {
+    width: 512px;
+    height: 230px;
+    border: 5px solid gray;
+    border-radius: 8px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#output {
+    width: 300px;
+    height: 42px;
+}
+
+#flat {
+    display: none;
+}
+
+#sharp {
+    display: none;
+}
+
+.flat #flat {
+    display: inline;
+}
+
+.sharp #sharp {
+    display: inline;
+}
