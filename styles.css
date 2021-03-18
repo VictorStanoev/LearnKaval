@@ -33,6 +33,11 @@ div.vague {
     padding-top: 10px;
 }
 
+div.img{
+    height: 300;
+    width: 100;
+}
+
 #output {
     width: 300px;
     height: 42px;

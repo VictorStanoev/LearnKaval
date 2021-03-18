@@ -447,9 +447,20 @@ function updatePitch(time) {
 		const noteSimvol = selectedNote.substring(0, 2).trim();
 		console.log(noteSimvol, '-->', register)
 
+
+
 		//Make visible the note file as per note and register
-		noteFiles.map(x => x).filter(x => x.dataset.reg == register && x.dataset.note == noteSimvol
-			? x.style.visibility = 'visible' : x.style.visibility = 'hidden')
+		noteFiles.filter(x => x.dataset.reg == register && x.dataset.note == noteSimvol
+			? x.style.visibility = 'visible' : x.style.visibility = 'hidden');
+
+		showEmptyFlute();
+
+		function showEmptyFlute() {
+			if (noteFiles.every(x => x.style.visibility == 'hidden')) {
+				noteFiles.filter(x => x.dataset.note == 'note')[0].style.visibility = 'visible'
+			}
+		}
+
 
 
 		var detune = centsOffFromPitch(pitch, note);
