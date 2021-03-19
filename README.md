@@ -1,9 +1,7 @@
-# Simple pitch detection
+# LearnKaval
 
-I whipped this app up to start experimenting with pitch detection, and also to test live audio input.  It used to perform a naive (zero-crossing based) pitch detection algorithm; now it uses a naively-implemented auto-correlation algorithm in realtime, so it should work well with most monophonic waveforms (although strong harmonics will throw it off a bit).  It works well with whistling (which has a clear, simple waveform); it also works pretty well to tune my guitar.
+This app is created to help begining playes in Bulgarian Kaval (woden flute) to achive perfection in exercises for proper tone stabilization. Application is based on "Simple pitch detection" https://github.com/cwilso/pitchdetect and is implemented originaly to be used in guitar players and it uses autocorelation algorithm to detect clear sound main waveform frequency and is perfect for vocal, string and wind instruments. This app uses kaval fingerchart and sound samples created by popular Bulgarian kaval player Zhivko Vasilev https://zhivkovasilev.com/. 
 
-Live instance hosted on https://webaudiodemos.appspot.com/pitchdetect/.
+Check it out, feel free to fork, submit pull requests, etc. MIT-Licensed - party on.
 
-Check it out, feel free to fork, submit pull requests, etc.  MIT-Licensed - party on.
-
--Chris
+-Victor
