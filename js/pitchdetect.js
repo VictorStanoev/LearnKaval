@@ -455,6 +455,7 @@ function updatePitch(time) {
 
 		showEmptyFlute();
 
+		//show empy flute picture if no note picture is visible
 		function showEmptyFlute() {
 			if (noteFiles.every(x => x.style.visibility == 'hidden')) {
 				noteFiles.filter(x => x.dataset.note == 'note')[0].style.visibility = 'visible'
