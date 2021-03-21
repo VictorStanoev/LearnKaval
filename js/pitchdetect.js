@@ -42,11 +42,16 @@ var detectorElem,
 	detuneElem,
 	detuneAmount;
 
+
+
+
+
+//https://raw.githubusercontent.com/ytung/YaleHack/master/docs/whistling3.ogg
 window.onload = function () {
 	audioContext = new AudioContext();
 	MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000));	// corresponds to a 5kHz signal
 	var request = new XMLHttpRequest();
-	request.open("GET", "https://raw.githubusercontent.com/ytung/YaleHack/master/docs/whistling3.ogg", true);
+	request.open("GET", "https://gymrealmmanager.blob.core.windows.net/tests/LearnKaval/music/TheEmigrant.ogg", true);
 	request.responseType = "arraybuffer";
 	request.onload = function () {
 		audioContext.decodeAudioData(request.response, function (buffer) {
@@ -139,7 +144,9 @@ function toggleOscillator() {
 		window.cancelAnimationFrame(rafID);
 
 		//Enable all buttons
-		Array.from(btns).filter(x => x.disabled = false)
+		Array.from(btns).filter(x => x.className = 'button');
+		Array.from(btns).filter(x => x.disabled = false);
+
 		oscilBtn.innerHTML = "start oscillator";
 		return;
 	}
@@ -161,7 +168,10 @@ function toggleOscillator() {
 
 	//Disable all other buttons
 	btns[0].disabled = true
+	btns[0].className = 'button blocked'
 	btns[1].disabled = true
+	btns[1].className = 'button blocked'
+
 	oscilBtn.innerHTML = "stop oscillator";
 
 }
@@ -183,6 +193,7 @@ function toggleLiveInput() {
 
 		//Enable all buttons
 		Array.from(btns).filter(x => x.disabled = false)
+		Array.from(btns).filter(x => x.className = 'button')
 		return liveInpBtn.innerHTML = 'start live input';
 	}
 
@@ -207,7 +218,9 @@ function toggleLiveInput() {
 
 	//Disable all other buttons
 	btns[0].disabled = true
+	btns[0].className = 'button blocked'
 	btns[2].disabled = true
+	btns[2].className = 'button blocked'
 
 	liveInpBtn.innerHTML = 'stop live input';
 }
@@ -231,8 +244,15 @@ function togglePlayback() {
 
 		//Enable all buttons
 		Array.from(btns).filter(x => x.disabled = false)
+		Array.from(btns).filter(x => x.className = 'button')
 		return
 	}
+
+	//Disable other buttons
+	btns[1].disabled = true
+	btns[1].className = 'button blocked'
+	btns[2].disabled = true
+	btns[2].className = 'button blocked'
 
 	audioContext.resume().then(() => {
 		console.log('Playback resumed successfully');
@@ -240,7 +260,7 @@ function togglePlayback() {
 
 	sourceNode = audioContext.createBufferSource();
 	sourceNode.buffer = theBuffer;
-	sourceNode.loop = true;
+	sourceNode.loop = false;
 
 	analyser = audioContext.createAnalyser();
 	analyser.fftSize = 2048;
@@ -251,10 +271,6 @@ function togglePlayback() {
 	isLiveInput = false;
 	updatePitch();
 
-	//Disable other buttons
-	btns[1].disabled = true
-	btns[2].disabled = true
-
 	return demoBtn.innerHTML = "stop demo audio";
 }
 
@@ -263,7 +279,7 @@ var tracks = null;
 var buflen = 2048;//1024;
 var buf = new Float32Array(buflen);
 
-
+let compareNote;
 
 var noteStrings = [
 	"C - &#1044&#1054",
@@ -387,8 +403,38 @@ function autoCorrelate(buf, sampleRate) {
 	//	var best_frequency = sampleRate/best_offset;
 }
 
-function updatePitch(time) {
+var startTime, endTime;
+var startEmptyTime, endEmptyTime;
 
+function start() {
+	startTime = performance.now();
+};
+
+function end() {
+	endTime = performance.now();
+	let timeDiff = endTime - startTime; //in ms 
+
+	if (timeDiff != undefined) {
+		return timeDiff;
+	}
+}
+
+function startEmpty() {
+	startEmptyTime = performance.now();
+};
+
+function endEmpty() {
+	endEmptyTime = performance.now();
+	let timeDiff = endEmptyTime - startEmptyTime; //in ms 
+
+	if (timeDiff != undefined) {
+		console.log('0 --> ' + timeDiff.toFixed());
+	}
+}
+
+
+
+function updatePitch(time) {
 
 	var cycles = new Array;
 	analyser.getFloatTimeDomainData(buf);
@@ -433,6 +479,7 @@ function updatePitch(time) {
 		noteElem.innerText = "-";
 		detuneElem.className = "";
 		detuneAmount.innerText = "--";
+
 	} else {
 		detectorElem.className = "confident";
 		pitch = ac;
@@ -445,13 +492,25 @@ function updatePitch(time) {
 
 		//Take only note simvol from array
 		const noteSimvol = selectedNote.substring(0, 2).trim();
-		console.log(noteSimvol, '-->', register)
+		//console.log(noteSimvol, '-->', register)
 
+
+
+		if (noteSimvol != compareNote) {
+
+			if (end() > 50) {
+				let timePlayed = end();
+				console.log(compareNote, '-->', register, '-->', timePlayed.toFixed(0));
+			}
+			compareNote = noteSimvol
+			start();
+		}
 
 
 		//Make visible the note file as per note and register
 		noteFiles.filter(x => x.dataset.reg == register && x.dataset.note == noteSimvol
 			? x.style.visibility = 'visible' : x.style.visibility = 'hidden');
+
 
 		showEmptyFlute();
 
@@ -460,9 +519,8 @@ function updatePitch(time) {
 			if (noteFiles.every(x => x.style.visibility == 'hidden')) {
 				noteFiles.filter(x => x.dataset.note == 'note')[0].style.visibility = 'visible'
 			}
+
 		}
-
-
 
 		var detune = centsOffFromPitch(pitch, note);
 		if (detune == 0) {
